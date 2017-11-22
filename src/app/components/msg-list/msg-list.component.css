@@ -1,16 +1,49 @@
-.message-container {
-  width: 50%;
+* {
+  font-size: 0.95em;
+}
+
+.message-container{
+  width: 75%;
   margin: 5px;
   padding: 5px;
   border: 1px solid black;
 }
 
-.message-odd {
+.message-mine {
   background-color: #cccccc;
 }
 
 .small-text {
+  margin-top: 5px;
   padding-left: 20px;
   font-size: .8em;
   color: blue;
 }
+
+.del-link a {
+  float: right;
+  color: #a50707;
+  text-decoration: none;
+}
+
+.hl-user {
+  color: #187c18;
+  font-weight: 600;
+}
+
+#add-message {
+  width: 75%;
+  margin: 5px;
+  padding: 5px;
+}
+
+#message-box {
+  min-width: 70%;
+  margin: 10px;
+}
+
+#sender-box {
+  width: 20%;
+  margin: 10px;
+}
+

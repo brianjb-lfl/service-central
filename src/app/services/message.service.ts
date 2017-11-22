@@ -6,10 +6,30 @@ import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class MessageService {
-  constructor() { }
+  messages: Message[];
 
-  getMessages(): Observable<Message[]> {
-    return of (MESSAGES);
+  constructor() {
+    this.messages = MESSAGES.sort( (a, b) => b.timestamp - a.timestamp);
+    console.log(this.messages);
+  }
+
+  // getMessages(): Observable<Message[]> {
+  //   return of (this.messages);
+  // }
+
+  addMsg(message) {
+    //let tempMsgs = this.messages.slice();
+    this.messages.unshift(
+      {id: this.messages[0].id + 1,
+        msg: message.msg,
+        sender: message.sender,
+        timestamp: new Date(Date.now());
+      });
+    //this.messages = tempMsgs.sort( (a, b) => b.timestamp - a.timestamp);
+  }
+
+  deleteMsg(id) {
+    this.messages = this.messages.filter( item => item.id !== id);
   }
 
 }
