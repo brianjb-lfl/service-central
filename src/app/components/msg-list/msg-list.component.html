@@ -1,0 +1,19 @@
+<h1>Message Traffic</h1>
+<div id="message-list" *ngFor="let message of messages">
+  <div class="message-container" [class.message-odd]="(message.id % 2) !== 0">
+    <div>
+      {{ message.id }}: 
+      {{ message.msg }}
+    </div>
+    <div class="small-text">
+      {{ message.sender }} - 
+      {{ message.timestamp | date:"short" }}
+    </div>
+  </div>
+</div>
+<div id="add-message">
+  <form>
+    <input [(ngModel)]="currMsg" name="currMsg" placeholder="message here">
+    <button type="button" (click)="handleNewMsgClick()">send</button>
+  </form>
+</div>
