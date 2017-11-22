@@ -10,7 +10,6 @@ export class MessageService {
 
   constructor() {
     this.messages = MESSAGES.sort( (a, b) => b.timestamp - a.timestamp);
-    console.log(this.messages);
   }
 
   // getMessages(): Observable<Message[]> {
