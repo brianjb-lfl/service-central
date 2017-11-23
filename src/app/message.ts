@@ -1,5 +1,5 @@
 export class Message {
-  id:number;
+  id:string;
   msg:string;
   sender:string;
   timestamp:any;

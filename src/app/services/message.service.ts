@@ -1,34 +1,60 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 import { Message } from '../message';
-import { MESSAGES } from '../mock-msgs';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { HttpResponse } from '@angular/common/http/src/response';
 
 @Injectable()
 export class MessageService {
   messages: Message[];
+  msgUrl: string = 'http://localhost:8080/api/messages';
+  taskUrl: string = 'http://localhost:8080/api/tasks';
 
-  constructor() {
-    this.messages = MESSAGES.sort( (a, b) => b.timestamp - a.timestamp);
+  constructor(private http: HttpClient) {
+    this.getMsgs();
+  }  
+
+  getMsgs() {
+    this.http.get(this.msgUrl).subscribe(
+      data => {
+        this.messages = data;
+      },
+      err => {
+        console.log(err.status, err.statusText);
+      }
+    ) 
   }
 
-  // getMessages(): Observable<Message[]> {
-  //   return of (this.messages);
-  // }
-
   addMsg(message) {
-    //let tempMsgs = this.messages.slice();
-    this.messages.unshift(
-      {id: this.messages[0].id + 1,
-        msg: message.msg,
-        sender: message.sender,
-        timestamp: new Date(Date.now());
-      });
-    //this.messages = tempMsgs.sort( (a, b) => b.timestamp - a.timestamp);
+    const payload = {
+      msg: message.msg,
+      sender: message.sender
+    }
+    this.http.post(this.msgUrl, payload).subscribe(
+      res => {
+        console.log(res);
+        this.getMsgs();
+      },
+      err => {
+        console.log(err.status, err.statusText);
+      }
+    );
+
   }
 
   deleteMsg(id) {
-    this.messages = this.messages.filter( item => item.id !== id);
+    console.log(id);
+    this.http.delete(`${this.msgUrl}/${id}`).subscribe(
+      res => {
+        console.log("ok");
+        this.getMsgs();
+      },
+      err => {
+        console.log(err.status, err.statusText);
+      }
+    )
   }
 
 }
