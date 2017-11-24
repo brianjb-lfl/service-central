@@ -1,11 +1,15 @@
 <hr>
 <div id="task-container">
-  <h1>Tasks</h1>
+  <h1>{{ currTaskMsg }}</h1>
   <div id="task-list-container" [hidden]="(addEditMode !== 'list')">
     <div id="task-list"  *ngFor="let task of taskService.tasks">
       <div class="task-container">
         <div class="task-text">
           {{ task.task }}
+        </div>
+        <div class="small-text">
+          <label>Assigned to: </label>
+          {{ task.assigned }}
         </div>
         <div class="small-text">
           {{ task.contact }} - 
@@ -17,6 +21,8 @@
         </div>
       </div>
     </div>
+    <button type="button" (click)="clickSeeMy()">See My Tasks</button>
+    <button type="button" (click)="clickSeeAll()">See All</button>
     <button type="button" (click)="addNewTask()">add task</button>
   </div>
 

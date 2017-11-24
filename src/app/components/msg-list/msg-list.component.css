@@ -21,11 +21,13 @@
 .message-time {
   display: inline-block;
   width: 110px;
+  opacity: 0.8;
 }
 
 .message-sender {
   display: inline-block;
   width: 75px;
+  opacity: 0.8;
 }
 
 .message-text {

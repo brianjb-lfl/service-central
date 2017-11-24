@@ -15,6 +15,7 @@ export class TaskListComponent implements OnInit {
   currCsz: string = '';
   addEditMode: string = 'list';       // list, add, edit
   editingId: string = '';
+  currTaskMsg: string = 'ALL Tasks';
 
   constructor(private taskService: TaskService) {
 
@@ -22,6 +23,16 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  clickSeeAll() {
+    this.currTaskMsg = "ALL Tasks"
+    this.taskService.getTasks();
+  }
+
+  clickSeeMy() {
+    this.currTaskMsg = "My Tasks"
+    this.taskService.getTasks(this.currUser);
   }
 
   addNewTask() {

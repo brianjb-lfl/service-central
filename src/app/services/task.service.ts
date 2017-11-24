@@ -17,9 +17,16 @@ export class TaskService {
     this.getTasks();
   }
 
-  getTasks() {
-    
-    this.http.get(this.taskUrl).subscribe(
+  getTasks(inUser=null) {
+    if(inUser) {
+      this.getUrl = this.taskUrl + '/' + inUser;
+    }
+    else {
+      this.getUrl = this.taskUrl;
+    }
+
+    console.log(this.getUrl);
+    this.http.get(this.getUrl).subscribe(
       data => {
         this.tasks = data;
       },
