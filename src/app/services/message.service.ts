@@ -54,4 +54,12 @@ export class MessageService {
     )
   }
 
+  getMsgsByTask(id) {
+    this.http.get(`${this.msgUrl}/${id}`).subscribe(
+      (data: Message[]) => {
+        return data;
+      },
+    )
+  }
+
 }

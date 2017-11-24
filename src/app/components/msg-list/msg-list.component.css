@@ -3,6 +3,9 @@
 }
 
 #message-list {
+  width: 80%;
+  height: 180px;
+  overflow-y: scroll;
   background-color: black;
   padding: 10px;
 }

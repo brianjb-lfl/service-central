@@ -1,6 +1,11 @@
 <hr>
 <div id="task-container">
   <h1>{{ currShowMode === 'all' ? 'ALL Tasks' : 'My Tasks' }}</h1>
+  <span>
+    <button type="button" [hidden]="(currShowMode === 'my')" (click)="clickSeeMy()">See My Tasks</button>
+    <button type="button" [hidden]="(currShowMode === 'all')" (click)="clickSeeAll()">See All</button>
+    <button type="button" (click)="addNewTask()">add task</button>
+  </span>
   <div id="task-list-container" [hidden]="(addEditMode !== 'list')">
     <div id="task-list"  *ngFor="let task of taskService.tasks">
       <div class="task-container">
@@ -15,15 +20,13 @@
           {{ task.contact }} - 
           {{ task.addr }}
           <div id="ctrl-links">
+            <span class="cmt-link" (click)="commentTask(task.id)"><a href="#">cmt</a></span>
             <span class="edit-link" (click)="editTask(task)"><a href="#">edit</a></span>
             <span class="del-link" (click)="deleteTask(task.id)"><a href="#">del</a></span>
           </div>
         </div>
       </div>
     </div>
-    <button type="button" [hidden]="(currShowMode === 'my')" (click)="clickSeeMy()">See My Tasks</button>
-    <button type="button" [hidden]="(currShowMode === 'all')" (click)="clickSeeAll()">See All</button>
-    <button type="button" (click)="addNewTask()">add task</button>
   </div>
 
   <div id="add-task" [hidden]="(addEditMode === 'list')">
@@ -50,5 +53,9 @@
         <button type="button" (click)="addEditCancel()">cancel</button>
       </div>
     </form>
+    <div id="task-comment-list"  *ngFor="let comment of currComments">
+      <span>{{ comment.msg }}</span>
+    </div>
   </div>
-</div>  
+</div>
+

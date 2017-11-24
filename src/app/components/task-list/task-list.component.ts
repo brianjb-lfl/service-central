@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../task';
 import { TaskService } from '../../services/task.service';
+import { Message } from '../../message';
+import { MessageService } from '../../services/message.service';
 import { constants } from './task-list.constants';
 
 @Component({
@@ -16,9 +18,13 @@ export class TaskListComponent implements OnInit {
   currCsz: string = '';
   addEditMode: string = constants.modes.list;       // list, add, edit
   editingId: string = '';
+  commentingId: string = '';
   currShowMode: string = constants.showMode.all;     // all, my
+  currMsgs: any;
 
-  constructor(private taskService: TaskService) {
+  constructor(
+    private taskService: TaskService,
+    private messageService: MessageService) {
 
   }
 
@@ -47,6 +53,7 @@ export class TaskListComponent implements OnInit {
     this.currContact = task.contact,
     this.currAddress = task.address,
     this.currCsz = task.csz
+    this.currMsgs = this.messageService.messages.filter( msg => msg.taskid === task.id );
   }
 
   addEditSave() {
@@ -98,4 +105,5 @@ export class TaskListComponent implements OnInit {
     this.addEditMode = constants.modes.list;
     this.editingId = '';
   }
+
 }

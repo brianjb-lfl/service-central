@@ -13,6 +13,11 @@
   border: 1px solid black;
 }
 
+.task-container button {
+  display: inline-block;
+  float: right;
+}
+
 .task-odd {
   background-color: #cccccc;
 }

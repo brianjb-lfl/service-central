@@ -2,7 +2,8 @@ export const constants = {
   modes: {
     add: 'add',
     edit: 'edit',
-    list: 'list'  
+    list: 'list',
+    view: 'view'  
   },
   showMode: {
     my: 'my',
