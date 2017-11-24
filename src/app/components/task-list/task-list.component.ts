@@ -8,17 +8,35 @@ import { TaskService } from '../../services/task.service';
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnInit {
-  tasks: Task[];
+  currTask: string = '';
+  currContact: string = '';
+  currAddress: string = '';
+  currCsz: string = '';
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService) {
 
-  ngOnInit() {
-    this.getTasks();
   }
 
-  getTasks(): void {
-    this.taskService.getTasks()
-    .subscribe( tasks => { this.tasks = tasks });
+  ngOnInit() {
+
+  }
+
+  addTask() {
+    this.taskService.addTask (
+      { task: this.currTask,
+        contact: this.currContact,
+        address: this.currAddress,
+        csz: this.currCsz
+      }
+    )
+    this.currTask = '';
+    this.currContact = '';
+    this.currAddress = '';
+    this.currCsz = '';
+  }
+
+  deleteTask(id) {
+    this.taskService.deleteTask(id);
   }
 
 }

@@ -10,7 +10,6 @@ import { HttpResponse } from '@angular/common/http/src/response';
 export class MessageService {
   messages: Message[];
   msgUrl: string = 'http://localhost:8080/api/messages';
-  taskUrl: string = 'http://localhost:8080/api/tasks';
 
   constructor(private http: HttpClient) {
     this.getMsgs();
@@ -41,11 +40,9 @@ export class MessageService {
         console.log(err.status, err.statusText);
       }
     );
-
   }
 
   deleteMsg(id) {
-    console.log(id);
     this.http.delete(`${this.msgUrl}/${id}`).subscribe(
       res => {
         console.log("ok");
