@@ -1,33 +1,48 @@
 * {
-  font-size: 0.95em;
+  font-size: 0.98em;
+}
+
+#message-list {
+  background-color: black;
+  padding: 10px;
+}
+
+#messages-container {
+  margin: 20px;
+  width: 90vw;
 }
 
 .message-container{
   width: 75%;
-  margin: 5px;
   padding: 5px;
-  border: 1px solid black;
+  color: white;
+}
+
+.message-time {
+  display: inline-block;
+  width: 110px;
+}
+
+.message-sender {
+  display: inline-block;
+  width: 75px;
+}
+
+.message-text {
+  display: inline-block;
 }
 
 .message-mine {
-  background-color: #cccccc;
-}
-
-.small-text {
-  margin-top: 5px;
-  padding-left: 20px;
-  font-size: .8em;
-  color: blue;
+  color: rgb(184, 184, 184);
 }
 
 .del-link a {
-  float: right;
-  color: #a50707;
+  color: #ff8585;
   text-decoration: none;
 }
 
 .hl-user {
-  color: #187c18;
+  color: yellow;
   font-weight: 600;
 }
 
@@ -38,12 +53,14 @@
 }
 
 #message-box {
-  min-width: 70%;
+  min-width: 150px;
   margin: 10px;
+  border: 5px, solid, gray;
 }
 
 #sender-box {
   width: 20%;
   margin: 10px;
+  border: 5px, solid, gray;
 }
 

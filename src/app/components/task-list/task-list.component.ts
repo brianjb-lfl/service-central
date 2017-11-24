@@ -8,11 +8,12 @@ import { TaskService } from '../../services/task.service';
   styleUrls: ['./task-list.component.css']
 })
 export class TaskListComponent implements OnInit {
+  currUser: string = 'brian';
   currTask: string = '';
   currContact: string = '';
   currAddress: string = '';
   currCsz: string = '';
-  addEditMode: string = 'add';
+  addEditMode: string = 'list';       // list, add, edit
   editingId: string = '';
 
   constructor(private taskService: TaskService) {
@@ -21,6 +22,19 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  addNewTask() {
+    this.addEditMode = 'add';
+  }
+
+  editTask(task) {
+    this.addEditMode = 'edit',
+    this.editingId = task.id,
+    this.currTask = task.task,
+    this.currContact = task.contact,
+    this.currAddress = task.address,
+    this.currCsz = task.csz
   }
 
   addEditSave() {
@@ -32,6 +46,10 @@ export class TaskListComponent implements OnInit {
     }
   }
 
+  addEditCancel() {
+    this.clearEditFields();
+  }
+
   addTask() {
     this.taskService.addTask (
       { task: this.currTask,
@@ -41,16 +59,6 @@ export class TaskListComponent implements OnInit {
       }
     )
     this.clearEditFields();
-  }
-
-  editTask(task) {
-    console.log(task);
-    this.addEditMode = 'edit',
-    this.editingId = task.id,
-    this.currTask = task.task,
-    this.currContact = task.contact,
-    this.currAddress = task.address,
-    this.currCsz = task.csz
   }
 
   putTask() {
@@ -76,6 +84,7 @@ export class TaskListComponent implements OnInit {
     this.currContact = '';
     this.currAddress = '';
     this.currCsz = '';
+    this.addEditMode = 'list';
+    this.editingId = '';
   }
-
 }

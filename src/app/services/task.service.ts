@@ -11,12 +11,14 @@ import { HttpResponse } from '@angular/common/http/src/response';
 export class TaskService {
   tasks: Task[];
   taskUrl: string = 'http://localhost:8080/api/tasks';
+  getUrl: string;
 
   constructor(private http: HttpClient) {
     this.getTasks();
-   }
+  }
 
   getTasks() {
+    
     this.http.get(this.taskUrl).subscribe(
       data => {
         this.tasks = data;

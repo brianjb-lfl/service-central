@@ -1,10 +1,14 @@
 * {
-  font-size: .95em;
+  font-size: 1em;
+}
+
+#task-container {
+  margin-top: 20px;
+  width: 70vw;
 }
 
 .task-container {
-  width: 50%;
-  margin: 5px;
+  margin: 10px;
   padding: 5px;
   border: 1px solid black;
 }
@@ -13,10 +17,17 @@
   background-color: #cccccc;
 }
 
+.task-text {
+  font-size: 1em;
+  color: #616266;
+  font-weight: 600;
+}
+
 .small-text {
+  margin-top: 4px;
   padding-left: 20px;
-  font-size: .8em;
-  color: blue;
+  font-size: .88em;
+  color: #3838ff;
 }
 
 #ctrl-links {
@@ -37,4 +48,23 @@
   width: 100%;
   margin: 10px;
   padding: 5px;
+}
+
+.form-group {
+  margin: 10px;
+}
+
+.form-group input {
+  width: 70%;
+  padding: 2px;
+}
+
+.form-controls {
+  margin-top: 10px;
+  float: right;
+}
+
+label {
+  display: inline-block;
+  width: 100px;
 }

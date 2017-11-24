@@ -1,22 +1,23 @@
-<h1>Message Traffic</h1>
-<div id="message-list" *ngFor="let message of messageService.messages">
-  <div class="message-container" 
-        [class.message-mine]="(message.sender === currUser)"
-        [class.hl-user]="(message.sender === highlightUser)">
-    <div>
-      {{ message.msg }}
-      <span class="del-link" [hidden]="(message.sender === highlightUser)" (click)="deleteMsg(message.id)"><a href="#">del</a></span>
-    </div>
-    <div class="small-text">
-      {{ message.sender }} - 
-      {{ message.timestamp | date:"short" }}
+<div id="messages-container">
+  <h1>Message Traffic</h1>
+  <div id="message-list" >
+    <div class="message-container" 
+          [class.message-mine]="(message.sender === currUser)"
+          [class.hl-user]="(message.sender === highlightUser)"
+          *ngFor="let message of messageService.messages" >
+      <div class="message-text">
+        <span class="message-time">{{ message.timestamp | date:'yy-MM-dd  HH:mm' }}</span>
+        <span class="message-sender">{{ message.sender }}</span>
+        <span class="message-text">{{ message.msg }}</span>
+        <span class="del-link" [hidden]="(message.sender !== currUser)" (click)="deleteMsg(message.id)"><a href="#"> (del)</a></span>
+      </div>
     </div>
   </div>
-</div>
-<div id="add-message">
-  <form>
-    <input id="msg-box" [(ngModel)]="currMsg" name="currMsg" placeholder="message here">
-    <input id="sender-box" [(ngModel)]="currSender" name="currSender" placeholder="mimic sender">
-    <button type="button" (click)="addMsg()">send</button>
-  </form>
+  <div id="add-message">
+    <form>
+      <input id="msg-box" [(ngModel)]="currMsg" name="currMsg" placeholder="message here">
+      <input id="sender-box" [(ngModel)]="currSender" name="currSender" placeholder="mimic sender">
+      <button type="button" (click)="addMsg()">send</button>
+    </form>
+  </div>
 </div>
