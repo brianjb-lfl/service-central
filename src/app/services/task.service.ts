@@ -36,13 +36,29 @@ export class TaskService {
     }
     this.http.post(this.taskUrl, payload).subscribe(
       res => {
-        console.log(res);
         this.getTasks();
       },
       err => {
         console.log(err.status, err.statusText);
       }
     );
+  }
+
+  putTask(task) {
+    const payload = {
+      task: task.task,
+      contact: task.contact,
+      address: task.address,
+      csz: task.csz
+    }
+    this.http.put(`${this.taskUrl}/${task.id}`, payload).subscribe(
+      res => {
+        this.getTasks();
+      },
+      err => {
+        console.log(err.status, err.statusText);
+      }
+    )
   }
 
   deleteTask(id) {

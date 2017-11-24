@@ -3,7 +3,10 @@
   <div class="task-container">
     <div>
       {{ task.task }}
-      <span class="del-link" (click)="deleteTask(task.id)"><a href="#">del</a></span>
+      <div id="ctrl-links">
+        <span class="edit-link" (click)="editTask(task)"><a href="#">edit</a></span>
+        <span class="del-link" (click)="deleteTask(task.id)"><a href="#">del</a></span>
+      </div>
     </div>
     <div class="small-text">
       {{ task.contact }} - 
@@ -12,9 +15,10 @@
   </div>
 </div>
 <div id="add-task">
+  <h2>{{ addEditMode==='add' ? 'Add Task' : 'Editing ' + editingId }}</h2>
   <input id="task-box" [(ngModel)]="currTask" name="currTask" placeholder="task">
   <input id="contact-box" [(ngModel)]="currContact" name="currContact" placeholder="contact">
   <input id="address-box" [(ngModel)]="currAddress" name="currAddress" placeholder="address">
   <input id="csz-box" [(ngModel)]="currCsz" name="currCsz" placeholder="city, st zip">
-  <button type="button" (click)="addTask()">add</button>
+  <button type="button" (click)="addEditSave()">save</button>
 </div>

@@ -19,8 +19,16 @@
   color: blue;
 }
 
-.del-link a {
+#ctrl-links {
   float: right;
+}
+
+.edit-link a {
+  color: #247019;
+  text-decoration: none;
+}
+
+.del-link a {
   color: #a50707;
   text-decoration: none;
 }
