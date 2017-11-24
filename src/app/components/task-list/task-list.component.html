@@ -1,6 +1,6 @@
 <hr>
 <div id="task-container">
-  <h1>{{ currTaskMsg }}</h1>
+  <h1>{{ currShowMode === 'all' ? 'ALL Tasks' : 'My Tasks' }}</h1>
   <div id="task-list-container" [hidden]="(addEditMode !== 'list')">
     <div id="task-list"  *ngFor="let task of taskService.tasks">
       <div class="task-container">
@@ -21,8 +21,8 @@
         </div>
       </div>
     </div>
-    <button type="button" (click)="clickSeeMy()">See My Tasks</button>
-    <button type="button" (click)="clickSeeAll()">See All</button>
+    <button type="button" [hidden]="(currShowMode === 'my')" (click)="clickSeeMy()">See My Tasks</button>
+    <button type="button" [hidden]="(currShowMode === 'all')" (click)="clickSeeAll()">See All</button>
     <button type="button" (click)="addNewTask()">add task</button>
   </div>
 

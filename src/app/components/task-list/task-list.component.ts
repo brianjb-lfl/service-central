@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../../task';
 import { TaskService } from '../../services/task.service';
+import { constants } from './task-list.constants';
 
 @Component({
   selector: 'app-task-list',
@@ -13,9 +14,9 @@ export class TaskListComponent implements OnInit {
   currContact: string = '';
   currAddress: string = '';
   currCsz: string = '';
-  addEditMode: string = 'list';       // list, add, edit
+  addEditMode: string = constants.modes.list;       // list, add, edit
   editingId: string = '';
-  currTaskMsg: string = 'ALL Tasks';
+  currShowMode: string = constants.showMode.all;     // all, my
 
   constructor(private taskService: TaskService) {
 
@@ -26,21 +27,21 @@ export class TaskListComponent implements OnInit {
   }
 
   clickSeeAll() {
-    this.currTaskMsg = "ALL Tasks"
+    this.currShowMode = constants.showMode.all;
     this.taskService.getTasks();
   }
 
   clickSeeMy() {
-    this.currTaskMsg = "My Tasks"
+    this.currShowMode = constants.showMode.my;
     this.taskService.getTasks(this.currUser);
   }
 
   addNewTask() {
-    this.addEditMode = 'add';
+    this.addEditMode = constants.modes.add;
   }
 
   editTask(task) {
-    this.addEditMode = 'edit',
+    this.addEditMode = constants.modes.edit,
     this.editingId = task.id,
     this.currTask = task.task,
     this.currContact = task.contact,
@@ -49,12 +50,13 @@ export class TaskListComponent implements OnInit {
   }
 
   addEditSave() {
-    if(this.addEditMode === 'add') {
+    if(this.addEditMode === constants.modes.add) {
       this.addTask();
     }
     else {
       this.putTask();
     }
+    this.clearEditFields();
   }
 
   addEditCancel() {
@@ -82,8 +84,6 @@ export class TaskListComponent implements OnInit {
       }
     )
     this.clearEditFields();
-    this.addEditMode = 'add';
-    this.editingId = '';
   }
 
   deleteTask(id) {
@@ -95,7 +95,7 @@ export class TaskListComponent implements OnInit {
     this.currContact = '';
     this.currAddress = '';
     this.currCsz = '';
-    this.addEditMode = 'list';
+    this.addEditMode = constants.modes.list;
     this.editingId = '';
   }
 }

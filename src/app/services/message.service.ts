@@ -17,7 +17,7 @@ export class MessageService {
 
   getMsgs() {
     this.http.get(this.msgUrl).subscribe(
-      data => {
+      (data: Message[]) => {
         this.messages = data;
       },
       err => {

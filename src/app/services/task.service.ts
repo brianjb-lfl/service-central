@@ -25,9 +25,9 @@ export class TaskService {
       this.getUrl = this.taskUrl;
     }
 
-    console.log(this.getUrl);
+    //console.log(this.getUrl);
     this.http.get(this.getUrl).subscribe(
-      data => {
+      (data: Task[]) => {
         this.tasks = data;
       },
       err => {
