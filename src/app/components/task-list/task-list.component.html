@@ -13,10 +13,10 @@
           <div class="task-top-row">
             <span class="task-task">{{ task.task }}</span>
             <div class="task-ctrls">
-              <span class = "task-view" (click)="viewClick(task)"><a href="#">v</a></span>
-              <span class = "task-view" (click)="viewClick(task)"><a href="#">c</a></span>
-              <span class = "task-view" (click)="editClick(task)"><a href="#">e</a></span>
-              <span class = "task-view" (click)="deleteTask(task.id)"><a href="#">X</a></span>
+              <span class = "task-ctrl" (click)="viewClick(task)"><a href="#" title="view task"><i class="fa fa-eye"></i></a></span>
+              <span class = "task-ctrl" (click)="viewClick(task)"><a href="#" title="comment on task"><i class="fa fa-comment-o"></i></a></span>
+              <span class = "task-ctrl" (click)="editClick(task)"><a href="#" title="edit task"><i class="fa fa-edit"></i></a></span>
+              <span class = "task-ctrl" (click)="deleteTask(task.id)"><a href="#" title="delete task"><i class="fa fa-trash-o"></i></a></span>
             </div>
           </div>
           <div class="task-body">  

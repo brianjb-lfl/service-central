@@ -26,7 +26,7 @@ export class MessageService {
     ) 
   }
 
-  addMsg(message) {
+  addMsg(message, taskID=null) {
     console.log('addMsg called');
     console.log(message);
     const payload = {
@@ -38,6 +38,9 @@ export class MessageService {
       res => {
         console.log(res);
         this.getMsgs();
+        if(taskID) {
+          this.getMsgsByTask(taskID);
+        }
         return;
       },
       err => {
