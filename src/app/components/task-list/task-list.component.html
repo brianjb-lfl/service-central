@@ -1,61 +1,108 @@
-<hr>
-<div id="task-container">
-  <h1>{{ currShowMode === 'all' ? 'ALL Tasks' : 'My Tasks' }}</h1>
-  <span>
-    <button type="button" [hidden]="(currShowMode === 'my')" (click)="clickSeeMy()">See My Tasks</button>
-    <button type="button" [hidden]="(currShowMode === 'all')" (click)="clickSeeAll()">See All</button>
-    <button type="button" (click)="addNewTask()">add task</button>
-  </span>
-  <div id="task-list-container" [hidden]="(addEditMode !== 'list')">
-    <div id="task-list"  *ngFor="let task of taskService.tasks">
-      <div class="task-container">
-        <div class="task-text">
-          {{ task.task }}
-        </div>
-        <div class="small-text">
-          <label>Assigned to: </label>
-          {{ task.assigned }}
-        </div>
-        <div class="small-text">
-          {{ task.contact }} - 
-          {{ task.addr }}
-          <div id="ctrl-links">
-            <span class="cmt-link" (click)="commentTask(task.id)"><a href="#">cmt</a></span>
-            <span class="edit-link" (click)="editTask(task)"><a href="#">edit</a></span>
-            <span class="del-link" (click)="deleteTask(task.id)"><a href="#">del</a></span>
+<section id="task-container" class="main-container">
+
+  <div [hidden]="(addEditMode !== 'list')" id="task-list-container" class="container">
+    <h2>{{ currShowMode === 'all' ? 'ALL Tasks' : 'My Tasks' }}</h2>
+    <div id="task-list-ctrls">
+      <button id="my-task-btn" type="button" class="btn-std" [hidden]="(currShowMode === 'my')" (click)="clickSeeMy()">My Tasks</button>
+      <button id="all-tasks-btn" type="button" class="btn-std" [hidden]="(currShowMode === 'all')" (click)="clickSeeAll()">ALL Tasks</button>
+      <button id="add-task-btn" type="button" class="btn-std" (click)="addNewTask()">Add Task</button>
+    </div>
+     <div id="task-list-scroll"> 
+      <div id="task-list" *ngFor="let task of taskService.tasks">
+        <div class="task-container" [class.my-task]="currUser === task.assigned">
+          <div class="task-top-row">
+            <span class="task-task">{{ task.task }}</span>
+            <div class="task-ctrls">
+              <span class = "task-view" (click)="viewClick(task)"><a href="#">v</a></span>
+              <span class = "task-view" (click)="viewClick(task)"><a href="#">c</a></span>
+              <span class = "task-view" (click)="editClick(task)"><a href="#">e</a></span>
+              <span class = "task-view" (click)="deleteTask(task.id)"><a href="#">X</a></span>
+            </div>
           </div>
+          <div class="task-body">  
+            <span class="task-contact">{{ task.contact }}:  </span>
+            <span class="task-address">{{ task.address }} - {{ task.csz }}</span><br>
+            <span class="task-assigned">assigned: {{ task.assigned }}</span>
+          </div>  
         </div>
       </div>
     </div>
   </div>
 
-  <div id="add-task" [hidden]="(addEditMode === 'list')">
-    <h2>{{ addEditMode==='add' ? 'Add Task' : 'Editing:  ' + editingId }}</h2>
+  <div [hidden]="(addEditMode !== 'edit')" id="task-edit-container" class="container">
+    <h2>{{ editingId === '' ? 'Adding Task' : 'Editing Task' }}</h2>
     <form>
+
       <div class="form-group">
-        <label>Task</label>
-        <input id="task-box" [(ngModel)]="currTask" name="currTask" placeholder="task">
+        <label class="task-lbl">Task</label>
+        <input id="task-ip" class="task-ip" [(ngModel)]="currTask" name="currTask" placeholder="task">
       </div>
       <div class="form-group">
-        <label>Contact</label>
-        <input id="contact-box" [(ngModel)]="currContact" name="currContact" placeholder="contact">
+        <label class="task-lbl">Contact</label>
+        <input id="contact-ip" class="task-ip" [(ngModel)]="currContact" name="currContact" placeholder="contact">
       </div>
       <div class="form-group">
-        <label>Address</label>
-        <input id="address-box" [(ngModel)]="currAddress" name="currAddress" placeholder="address">
+        <label class="task-lbl">Address</label>
+        <input id="address-ip" class="task-ip" [(ngModel)]="currAddress" name="currAddress" placeholder="address">
       </div>
       <div class="form-group">
-        <label>CSZ</label>
-        <input id="csz-box" [(ngModel)]="currCsz" name="currCsz" placeholder="city, st zip">
+        <label class="task-lbl">CSZ</label>
+        <input id="csz-ip" class="task-ip" [(ngModel)]="currCsz" name="currCsz" placeholder="city, st zip">
+      </div>
+      <div class="form-group">
+        <label class="task-lbl">Assigned</label>
+        <input id="assigned-ip" class="task-ip" [(ngModel)]="currAssgd" name="currAssgd" placeholder="assigned">
       </div>
       <div class="form-controls">
-        <button type="button" (click)="addEditSave()">save</button>
-        <button type="button" (click)="addEditCancel()">cancel</button>
+        <button type="button" class="btn-std" (click)="addEditSave()">save</button>
+        <button type="button" class="btn-std" (click)="addEditCancel()">cancel</button>
       </div>
+
     </form>
-    <div id="task-comment-list"  *ngFor="let comment of currComments">
-      <span>{{ comment.msg }}</span>
+  </div>
+
+  <div [hidden]="(addEditMode !== 'view')" id="task-view-container" class="container">
+    <h2>Viewing</h2>
+    <div id="task-view">
+      <div class="view-group">
+        <label class="task-lbl">Task</label>
+        <span id="task-disp" class="task-disp">{{currTask}}</span>
+      </div>
+      <div class="view-group">
+        <label class="task-lbl">Contact</label>
+        <span id="contact-disp" class="task-disp">{{currContact}}</span>
+      </div>
+      <div class="view-group">
+        <label class="task-lbl">Address</label>
+        <span id="address-disp" class="task-disp">{{currAddress}}</span>
+      </div>
+      <div class="view-group">
+        <label class="task-lbl">CSZ</label>
+        <span id="csz-disp" class="task-disp">{{currCsz}}</span>
+      </div>
+      <div class="view-group">
+        <label class="task-lbl">Assigned</label>
+        <span id="assigned-disp" class="task-disp">{{currAssgd}}</span>
+      </div>
+      <div class="view-controls">
+        <button type="button" class="btn-std" (click)="addEditCancel()">close</button>
+      </div>
     </div>
   </div>
-</div>
 
+  <div [hidden]="(addEditMode!=='view')" id="task-msg-container" class="container">
+    <h3>Chat History for this Task</h3>
+    <div id="task-msg-list" *ngFor="let msg of currMsgs">
+      <div id="task-msg-scroll">
+        <span class="task-msg-time">{{ msg.timestamp | date:'MM-dd  HH:mm' }}</span>
+        <span class="task-msg-sender">{{ msg.sender }}</span>
+        <span class="task-msg-text">{{ msg.msg }}</span>
+      </div>
+    </div>
+    <form id="task-msg-form">
+      <input type="text" class="task-msg-ip" [(ngModel)]="currTaskMsg" name="currTaskMsg" placeholder="new message">
+      <button type="button" class="btn-std" (click)="addTaskMsg()">send</button>
+    </form>
+  </div>  
+
+</section>

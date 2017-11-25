@@ -27,14 +27,18 @@ export class MessageService {
   }
 
   addMsg(message) {
+    console.log('addMsg called');
+    console.log(message);
     const payload = {
       msg: message.msg,
-      sender: message.sender
+      sender: message.sender,
+      taskid: message.taskid,
     }
     this.http.post(this.msgUrl, payload).subscribe(
       res => {
         console.log(res);
         this.getMsgs();
+        return;
       },
       err => {
         console.log(err.status, err.statusText);

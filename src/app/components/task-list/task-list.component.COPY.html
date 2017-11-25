@@ -1,0 +1,61 @@
+<hr>
+<div id="task-container">
+  <h1>{{ currShowMode === 'all' ? 'ALL Tasks' : 'My Tasks' }}</h1>
+  <span>
+    <button type="button" [hidden]="(currShowMode === 'my')" (click)="clickSeeMy()">See My Tasks</button>
+    <button type="button" [hidden]="(currShowMode === 'all')" (click)="clickSeeAll()">See All</button>
+    <button type="button" (click)="addNewTask()">add task</button>
+  </span>
+  <div id="task-list-container" [hidden]="(addEditMode !== 'list')">
+    <div id="task-list"  *ngFor="let task of taskService.tasks">
+      <div class="task-container">
+        <div class="task-text">
+          {{ task.task }}
+        </div>
+        <div class="small-text">
+          <label>Assigned to: </label>
+          {{ task.assigned }}
+        </div>
+        <div class="small-text">
+          {{ task.contact }} - 
+          {{ task.addr }}
+          <div id="ctrl-links">
+            <span class="cmt-link" (click)="commentTask(task.id)"><a href="#">cmt</a></span>
+            <span class="edit-link" (click)="editTask(task)"><a href="#">edit</a></span>
+            <span class="del-link" (click)="deleteTask(task.id)"><a href="#">del</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="add-task" [hidden]="(addEditMode === 'list')">
+    <h2>{{ addEditMode==='add' ? 'Add Task' : 'Editing:  ' + editingId }}</h2>
+    <form>
+      <div class="form-group">
+        <label>Task</label>
+        <input id="task-box" [(ngModel)]="currTask" name="currTask" placeholder="task">
+      </div>
+      <div class="form-group">
+        <label>Contact</label>
+        <input id="contact-box" [(ngModel)]="currContact" name="currContact" placeholder="contact">
+      </div>
+      <div class="form-group">
+        <label>Address</label>
+        <input id="address-box" [(ngModel)]="currAddress" name="currAddress" placeholder="address">
+      </div>
+      <div class="form-group">
+        <label>CSZ</label>
+        <input id="csz-box" [(ngModel)]="currCsz" name="currCsz" placeholder="city, st zip">
+      </div>
+      <div class="form-controls">
+        <button type="button" (click)="addEditSave()">save</button>
+        <button type="button" (click)="addEditCancel()">cancel</button>
+      </div>
+    </form>
+    <div id="task-comment-list"  *ngFor="let comment of currComments">
+      <span>{{ comment.msg }}</span>
+    </div>
+  </div>
+</div>
+

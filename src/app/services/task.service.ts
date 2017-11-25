@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Task } from '../task';
-import { TASKS } from '../mock-tasks';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { HttpResponse } from '@angular/common/http/src/response';
@@ -41,7 +40,8 @@ export class TaskService {
       task: task.task,
       contact: task.contact,
       address: task.address,
-      csz: task.csz
+      csz: task.csz,
+      assigned: task.assigned
     }
     this.http.post(this.taskUrl, payload).subscribe(
       res => {

@@ -1,0 +1,71 @@
+* {
+  font-size: 0.98em;
+}
+
+#message-list {
+  width: 80%;
+  height: 180px;
+  overflow-y: scroll;
+  background-color: black;
+  padding: 10px;
+}
+
+#messages-container {
+  margin: 20px;
+  width: 90vw;
+}
+
+.message-container{
+  width: 75%;
+  padding: 5px;
+  color: white;
+}
+
+.message-time {
+  display: inline-block;
+  width: 110px;
+  opacity: 0.8;
+}
+
+.message-sender {
+  display: inline-block;
+  width: 75px;
+  opacity: 0.8;
+}
+
+.message-text {
+  display: inline-block;
+}
+
+.message-mine {
+  color: rgb(184, 184, 184);
+}
+
+.del-link a {
+  color: #ff8585;
+  text-decoration: none;
+}
+
+.hl-user {
+  color: yellow;
+  font-weight: 600;
+}
+
+#add-message {
+  width: 75%;
+  margin: 5px;
+  padding: 5px;
+}
+
+#message-box {
+  min-width: 150px;
+  margin: 10px;
+  border: 5px, solid, gray;
+}
+
+#sender-box {
+  width: 20%;
+  margin: 10px;
+  border: 5px, solid, gray;
+}
+

@@ -1,23 +1,28 @@
-<div id="messages-container">
-  <h1>Message Traffic</h1>
-  <div id="message-list" >
-    <div class="message-container" 
-          [class.message-mine]="(message.sender === currUser)"
-          [class.hl-user]="(message.sender === highlightUser)"
-          *ngFor="let message of messageService.messages" >
-      <div class="message-text">
-        <span class="message-time">{{ message.timestamp | date:'yy-MM-dd  HH:mm' }}</span>
-        <span class="message-sender">{{ message.sender }}</span>
-        <span class="message-text">{{ message.msg }}</span>
-        <span class="del-link" [hidden]="(message.sender !== currUser)" (click)="deleteMsg(message.id)"><a href="#"> (del)</a></span>
+<section id="task-container" class="main-container">
+  <div id="msg-list-container" class="container">
+    <h2>Chat</h2>
+    <div id="msg-list-scroll">
+      <div id="msg-list" *ngFor="let message of messageService.messages">
+        <div class="msg-container"
+          [class.msg-highlight]="message.sender === highlightUser"
+          [class.msg-mine]="message.sender === currUser"
+        >
+          <div class="msg-time msg-part">
+            {{ message.timestamp | date:'yy-MM-dd  HH:mm' }}
+          </div>
+          <div class="msg-sender msg-part">
+            {{ message.sender }}
+          </div>
+          <div class="msg-msg msg-part">
+            {{ message.msg }}
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div id="add-message">
-    <form>
-      <input id="msg-box" [(ngModel)]="currMsg" name="currMsg" placeholder="message here">
-      <input id="sender-box" [(ngModel)]="currSender" name="currSender" placeholder="mimic sender">
-      <button type="button" (click)="addMsg()">send</button>
+    <form id="msg-form">
+      <input type="text" id="msg-msg" class="msg-ip" [(ngModel)]="currMsg" name="currMsg" placeholder="new message">
+      <input type="text" id="msg-sender" class="msg-ip" [(ngModel)]="currSender" name="currSender" placeholder="mimic user">
+      <button type="button" class="btn-std" (click)="addMsg()">send</button>
     </form>
   </div>
-</div>
+</section>

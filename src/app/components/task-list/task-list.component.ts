@@ -16,16 +16,16 @@ export class TaskListComponent implements OnInit {
   currContact: string = '';
   currAddress: string = '';
   currCsz: string = '';
-  addEditMode: string = constants.modes.list;       // list, add, edit
+  currAssgd: string = '';
+  addEditMode: string = constants.modes.list;       // list, view, edit
   editingId: string = '';
-  commentingId: string = '';
   currShowMode: string = constants.showMode.all;     // all, my
   currMsgs: any;
+  currTaskMsg: '';
 
   constructor(
     private taskService: TaskService,
     private messageService: MessageService) {
-
   }
 
   ngOnInit() {
@@ -43,22 +43,33 @@ export class TaskListComponent implements OnInit {
   }
 
   addNewTask() {
-    this.addEditMode = constants.modes.add;
+    this.clearEditFields();
+    this.addEditMode = constants.modes.edit;
   }
 
-  editTask(task) {
-    this.addEditMode = constants.modes.edit,
-    this.editingId = task.id,
-    this.currTask = task.task,
-    this.currContact = task.contact,
-    this.currAddress = task.address,
-    this.currCsz = task.csz
-    this.currMsgs = this.messageService.messages.filter( msg => msg.taskid === task.id );
+  editClick(task) {
+    this.addEdit(task);
+    this.addEditMode = constants.modes.edit    
+  }
+
+  viewClick(task) {
+    this.addEdit(task);
+    this.addEditMode = constants.modes.view;   
+  }
+
+  addEdit(task) {
+    this.editingId = task.id;
+    this.currTask = task.task;
+    this.currContact = task.contact;
+    this.currAddress = task.address;
+    this.currCsz = task.csz;
+    this.currAssgd = task.assigned;
+    this.currMsgs = this.messageService.messages.filter( msg => msg.taskid === task.id);
   }
 
   addEditSave() {
-    if(this.addEditMode === constants.modes.add) {
-      this.addTask();
+    if(this.editingId === '') {
+      this.postTask();
     }
     else {
       this.putTask();
@@ -70,12 +81,14 @@ export class TaskListComponent implements OnInit {
     this.clearEditFields();
   }
 
-  addTask() {
+  postTask() {
+    console.log('posting', this.currAssgd)
     this.taskService.addTask (
       { task: this.currTask,
         contact: this.currContact,
         address: this.currAddress,
-        csz: this.currCsz
+        csz: this.currCsz,
+        assigned: this.currAssgd
       }
     )
     this.clearEditFields();
@@ -87,7 +100,8 @@ export class TaskListComponent implements OnInit {
         task: this.currTask,
         contact: this.currContact,
         address: this.currAddress,
-        csz: this.currCsz
+        csz: this.currCsz,
+        assigned: this.currAssgd
       }
     )
     this.clearEditFields();
@@ -102,8 +116,21 @@ export class TaskListComponent implements OnInit {
     this.currContact = '';
     this.currAddress = '';
     this.currCsz = '';
+    this.currAssgd = '';
     this.addEditMode = constants.modes.list;
     this.editingId = '';
+    this.currMsgs = [];
+  }
+
+  addTaskMsg() {
+    this.messageService.addMsg (
+      { msg: this.currTaskMsg,
+        sender: this.currUser,
+        taskid: this.editingId
+      }
+    )
+    this.currTaskMsg = '';
+    this.clearEditFields();
   }
 
 }
