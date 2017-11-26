@@ -16,6 +16,7 @@ export class MessageService {
   }  
 
   getMsgs() {
+    console.log(this.msgUrl);
     this.http.get(this.msgUrl).subscribe(
       (data: Message[]) => {
         this.messages = data;

@@ -17,6 +17,7 @@ export class TaskService {
   }
 
   getTasks(inUser=null) {
+    console.log(this.taskUrl);
     if(inUser) {
       this.getUrl = this.taskUrl + '/' + inUser;
     }
